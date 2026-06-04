@@ -1,16 +1,485 @@
+/* ============================= */
+/* IMPORTS & VARIABLES           */
+/* ============================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --grey-light: #f0f0f0;
+  --grey-mid: #c8c8c8;
+  --grey-dark: #333333;
+  --border: 2px solid #000;
+}
+
+/* ============================= */
+/* RESET & GLOBAL                */
+/* ============================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Mono', monospace;
+  background-color: var(--white);
+  color: var(--black);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ============================= */
+/* HEADER / HERO                 */
+/* ============================= */
+
+header {
+  background-color: var(--black);
+  color: var(--white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: "CLEAN";
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: 'DM Serif Display', serif;
+  font-size: 18vw;
+  color: rgba(255,255,255,0.04);
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 700px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.8s ease both;
+}
+
+header p {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--grey-mid);
+  max-width: 480px;
+  margin-bottom: 48px;
+  letter-spacing: 0.02em;
+  animation: fadeUp 0.8s 0.15s ease both;
+}
+
+header button {
+  background-color: var(--white);
+  color: var(--black);
+  border: none;
+  padding: 16px 36px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+header button:hover {
+  background-color: var(--grey-mid);
+  transform: translateY(-2px);
+}
+
+/* ============================= */
+/* SERVICES CARDS STRIP          */
+/* ============================= */
+
+.services {
+  padding: 80px 60px;
+  border-bottom: var(--border);
+}
+
+.services h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 40px;
+  letter-spacing: -0.01em;
+}
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.card {
+  border: var(--border);
+  border-right: none;
+  padding: 40px 30px;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: default;
+  transition: background 0.2s, color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:last-child {
+  border-right: var(--border);
+}
+
+.card::after {
+  content: "→";
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  font-size: 1.2rem;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.card:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ============================= */
+/* PRICING                       */
+/* ============================= */
+
+.pricing {
+  padding: 60px 0 50px;
+  border-bottom: var(--border);
+  margin-bottom: 60px;
+}
+
+.pricing h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 30px;
+  letter-spacing: -0.01em;
+}
+
+.pricing > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.service-card {
+  border: var(--border);
+  border-right: none;
+  padding: 30px 24px;
+}
+
+.service-card:last-child {
+  border-right: var(--border);
+}
+
+.service-card h3 {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: var(--grey-dark);
+}
+
+.service-card p {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* ============================= */
+/* BOOKING SECTION               */
+/* ============================= */
+
+#booking {
+  padding: 80px 60px;
+  max-width: 100%;
+  border-bottom: var(--border);
+}
+
+#booking > h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 48px;
+  letter-spacing: -0.01em;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: var(--border);
+  max-width: 800px;
+}
+
+form input,
+form select {
+  border: none;
+  border-bottom: var(--border);
+  border-right: var(--border);
+  padding: 18px 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  background: var(--white);
+  color: var(--black);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  transition: background 0.15s;
+}
+
+form input::placeholder {
+  color: var(--grey-mid);
+  letter-spacing: 0.03em;
+}
+
+form input:focus,
+form select:focus {
+  background: var(--grey-light);
+}
+
+/* Full-width for select */
+form select:last-of-type {
+  grid-column: 1 / -1;
+  border-right: none;
+}
+
+/* Submit button spanning full width */
+form button[type="submit"] {
+  grid-column: 1 / -1;
+  background-color: var(--black);
+  color: var(--white);
+  border: none;
+  padding: 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+form button[type="submit"]:hover {
+  background-color: var(--grey-dark);
+}
+
+/* ============================= */
+/* MESSAGE BOX                   */
+/* ============================= */
+
 #message {
-    margin-bottom: 15px;
-    padding: 12px;
-    border-radius: 5px;
-    display: none;
+  padding: 14px 20px;
+  margin-bottom: 24px;
+  display: none;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  max-width: 800px;
+  border: var(--border);
 }
 
 .success {
-    background-color: #d4edda;
-    color: #155724;
+  background-color: var(--black);
+  color: var(--white);
 }
 
 .error {
-    background-color: #f8d7da;
-    color: #721c24;
+  background-color: var(--white);
+  color: var(--black);
+  border-left: 6px solid var(--black) !important;
+}
+
+/* ============================= */
+/* BOOKINGS LIST                 */
+/* ============================= */
+
+section:last-of-type {
+  padding: 80px 60px;
+}
+
+section:last-of-type > h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 40px;
+}
+
+#bookingsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0;
+}
+
+#bookingsList > p {
+  color: var(--grey-dark);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+
+/* ============================= */
+/* BOOKING CARDS                 */
+/* ============================= */
+
+.booking-card {
+  border: var(--border);
+  border-right: none;
+  border-bottom: none;
+  padding: 28px 24px;
+  position: relative;
+  transition: background 0.2s, color 0.2s;
+}
+
+.booking-card:hover {
+  background: var(--grey-light);
+}
+
+#bookingsList {
+  border-bottom: var(--border);
+}
+
+.booking-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.booking-card p {
+  font-size: 0.78rem;
+  color: var(--grey-dark);
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.booking-card p strong {
+  color: var(--black);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+.booking-card button {
+  margin-top: 20px;
+  background: none;
+  color: var(--black);
+  border: var(--border);
+  padding: 8px 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.booking-card button:hover {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+/* ============================= */
+/* ANIMATIONS                    */
+/* ============================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================= */
+/* RESPONSIVE                    */
+/* ============================= */
+
+@media (max-width: 768px) {
+  header {
+    padding: 60px 24px;
+  }
+
+  .services,
+  #booking,
+  section:last-of-type {
+    padding: 60px 24px;
+  }
+
+  .service-list,
+  .pricing > div {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .service-card {
+    border-right: var(--border);
+    border-bottom: none;
+  }
+
+  .card:last-child,
+  .service-card:last-child {
+    border-bottom: var(--border);
+  }
+
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  form input,
+  form select {
+    border-right: none;
+  }
+
+  form select:last-of-type {
+    grid-column: 1;
+  }
+
+  #bookingsList {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-card {
+    border-right: var(--border);
+  }
 }
