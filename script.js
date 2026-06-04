@@ -24,10 +24,48 @@ function scrollToBooking() {
       service
     };
   
+
+
     // Get existing bookings
     let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-  
-    // Add new bookong
+
+    // We check if the date is in the past
+    const today = new Date().toISOString().split("T")[0];
+
+    if (date < today) {
+        showMessage(
+            "You cannot book a date in the past.",
+            "error"
+        );
+        return;
+    }
+    
+    console.log("Current booking:", { date, time });
+    console.log("Existing bookings:", bookings);
+    // We check if the time slot is already booked by another customer
+    const bookingExists = bookings.some(existingBooking => {
+        console.log("Comparing:");
+        console.log("Existing Date:", existingBooking.date);
+        console.log("Current Date:", date);
+        console.log("Existing Time:", existingBooking.time);
+        console.log("Current Time:", time);
+    
+        return (
+            existingBooking.date === date &&
+            existingBooking.time === time
+        );
+    });
+    
+    if (bookingExists) {
+        showMessage(
+            "This time slot is already booked. Please choose another time.",
+            "error"
+        );
+        return;
+    }
+    console.log("Booking exists:", bookingExists);
+
+
     bookings.push(booking);
   
     // Save back to localStorage
@@ -39,28 +77,86 @@ function scrollToBooking() {
     // Clear form
     document.getElementById("bookingForm").reset();
   
-    alert("Booking submitted successfully!");
+    showMessage("Booking submitted successfully!", "success");
   });
+
+
   
   // Display bookings
   function displayBookings() {
-    const bookingsList = document.getElementById("bookingsList");
-  
-    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-  
-    bookingsList.innerHTML = "";
-  
-    bookings.forEach((booking) => {
-      const bookingCard = document.createElement("div");
-  
-      bookingCard.innerHTML = `
-        <h3>${booking.name}</h3>
-        <p><strong>Service:</strong> ${booking.service}</p>
-        <p><strong>Date:</strong> ${booking.date}</p>
-        <p><strong>Time:</strong> ${booking.time}</p>
-        <hr>
-      `;
-  
-      bookingsList.appendChild(bookingCard);
-    });
+      // We get the bookings list element
+      const bookingsList = document.getElementById("bookingsList");
+
+      // We get the bookings from localStorage
+      let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+      // Clear bookings list
+      bookingsList.innerHTML = "";
+
+      // Handle empty bookings
+      if (bookings.length === 0) {
+          bookingsList.innerHTML = "<p>No bookings yet.</p>";
+          return;
+      }
+
+      // Loop through bookings
+      bookings.forEach((booking, index) => {
+
+          // Format date for display only
+          const formattedDate = new Date(booking.date)
+              .toLocaleDateString("en-ZA", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric"
+              });
+
+          const bookingCard = document.createElement("div");
+          bookingCard.classList.add("booking-card");
+
+          bookingCard.innerHTML = `
+              <h3>${booking.name}</h3>
+              <p><strong>Service:</strong> ${booking.service}</p>
+              <p><strong>Date:</strong> ${formattedDate}</p>
+              <p><strong>Time:</strong> ${booking.time}</p>
+
+              <button onclick="deleteBooking(${index})">
+                  Delete Booking
+              </button>
+          `;
+
+          bookingsList.appendChild(bookingCard);
+      });
   }
+
+
+
+  // Delete booking
+  function deleteBooking(index) {
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+    // We remove the booking from the array
+    bookings.splice(index, 1);
+
+    // We save the updated array back to localStorage
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+
+    // Refresh booking list
+    displayBookings();
+
+    showMessage("Booking deleted successfully!", "success");
+}
+
+
+
+  // Show message
+  function showMessage(message, type) {
+    const messageBox = document.getElementById("message");
+
+    messageBox.textContent = message;
+    messageBox.className = type;
+    messageBox.style.display = "block";
+
+    setTimeout(() => {
+        messageBox.style.display = "none";
+    }, 3000);
+}
