@@ -1,5 +1,5 @@
 Kamgabaza Cleaning Services — Booking System
-A lightweight, browser-based booking app for a cleaning services business. Built with plain HTML, CSS, and JavaScript — no frameworks, no backend, no fuss.
+A lightweight, browser-based booking app for a cleaning services business. Built with plain HTML, CSS, and JavaScript — no frameworks, no fuss. Live at [kamgabaza cleaning services](https://otty98.github.io/kmg-cleaning-services/)
 
 What It Does
 Customers can visit the page, pick a service, choose a date and time slot, and submit a booking — all without leaving their browser. Bookings are saved locally so they persist between page refreshes, and the whole thing runs by simply opening a single HTML file.
