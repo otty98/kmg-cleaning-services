@@ -6,12 +6,12 @@ Customers can visit the page, pick a service, choose a date and time slot, and s
 
 Features
 
-Service booking form — name, service type, date, and 2-hour time slot
-Conflict prevention — won't allow two bookings on the same date and time
-Date & time validation — blocks past dates and time slots that have already passed today
-Live booking dashboard — all bookings render dynamically on the page
-Delete functionality — remove any booking with one click
-Inline notifications — success and error feedback without any browser popups
+Service booking form —> name, service type, date, and 2-hour time slot
+Conflict prevention —> won't allow two bookings on the same date and time
+Date & time validation —> blocks past dates and time slots that have already passed today
+Live booking dashboard —> all bookings render dynamically on the page
+Delete functionality —> remove any booking with one click
+Inline notifications —> success and error feedback without any browser popups
 
 
 AI Assistance
